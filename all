@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lista modeli telefonów" />
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/telefon"
+        ></ListView>
+</LinearLayout>
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="266dp"
+        android:layout_height="219dp"
+        android:src="@drawable/nokia3310"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="
+Wymiary (wys. x szer. x grub.)
+115,60 x 51,00 x 12,80 mm
+Waga
+79,60 g
+Pamięć wbudowana
+16 MB
+ Karty pamięci
+microSD, microSDHC
+(do 32 GB)
+"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Powrót do strony głównej"
+        android:id="@+id/start"
+        android:onClick="start"/>
+
+</LinearLayout>
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="121dp"
+        android:layout_height="210dp"
+        android:src="@drawable/galaxy"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="
+Wymiary (wys. x szer. x grub.)
+142,00 x 72,50 x 8,10 mm
+Waga
+145,00 g
+Pamięć wbudowana
+16 GB
+Pamięć RAM
+2 GB
+ Karty pamięci
+microSD, microSDHC, microSDXC (do 128 GB)
+System operacyjny
+Android 4.4.2 Kitkat
+"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Powrót do strony głównej"
+        android:id="@+id/start"
+        android:onClick="start"/>
+
+</LinearLayout>
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="153dp"
+        android:layout_height="196dp"
+        android:src="@drawable/sony"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="
+Wymiary (wys. x szer. x grub.)
+146,00 x 72,00 x 7,30 mm
+Waga
+152,00 g
+Pamięć wbudowana
+16 GB, 32 GB
+Pamięć RAM
+3 GB
+ Karty pamięci
+microSD, microSDHC, microSDXC (do 128 GB)
+System operacyjny
+Android 4.4.4 Kitkat
+"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Powrót do strony głównej"
+        android:id="@+id/start"
+        android:onClick="start"/>
+
+</LinearLayout>
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.Resources;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.app.Activity;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+public class MainActivity extends Activity {
+
+    private ListView lv;
+    private String [] tele;
+
+    private void initResource(){
+        Resources res = getResources();
+        tele =res.getStringArray(R.array.telefon);
+    }
+
+    private void initTelefonListView(){
+        lv.setAdapter(new ArrayAdapter<String>(getBaseContext(),android.R.layout.simple_list_item_1,tele));
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            public void onItemClick(AdapterView<?> parent,View v, int pos, long id){
+                if(pos==0){
+                    Context context;
+                    context=getApplicationContext();
+                    Intent intent=new Intent(context,Nokia.class);
+                    startActivity(intent);
+                }
+                if(pos==1){
+                    Context context;
+                    context=getApplicationContext();
+                    Intent intent=new Intent(context,Samsung.class);
+                    startActivity(intent);
+                }
+                if(pos==2){
+                    Context context;
+                    context=getApplicationContext();
+                    Intent intent=new Intent(context,Sony.class);
+                    startActivity(intent);
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        lv=(ListView) findViewById(R.id.telefon);
+        initResource();
+        initTelefonListView();
+    }
+}
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.ListView;
+
+/**
+ * Created by Boruch on 2017-04-10.
+ */
+
+public class Nokia extends Activity{
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.nokia_layout);
+    }
+    public void start(){
+        Context context;
+        context=getApplicationContext();
+        Intent intent = new Intent(context,MainActivity.class);
+        startActivity(intent);
+    }
+}
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+
+/**
+ * Created by Boruch on 2017-04-10.
+ */
+
+public class Samsung extends Activity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.samsung_layout);
+    }
+    public void start(){
+        Context context;
+        context=getApplicationContext();
+        Intent intent = new Intent(context,MainActivity.class);
+        startActivity(intent);
+    }
+}
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+
+/**
+ * Created by Boruch on 2017-04-10.
+ */
+
+public class Sony extends Activity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.sony_layout);
+    }
+    public void start(){
+        Context context;
+        context=getApplicationContext();
+        Intent intent = new Intent(context,MainActivity.class);
+        startActivity(intent);
+    }
+}
+<resources>
+    <string name="app_name">Zadanie5</string>
+    <string-array name="telefon">
+        <item>Nokia</item>
+        <item>Samsung</item>
+        <item>Sony</item>
+    </string-array>
+</resources>
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.boruch.zadanie5">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Nokia">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Samsung">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Sony">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
